@@ -1,0 +1,17 @@
+InfCloud Changelog
+
+version 0.13.1 [2015-09-22]:
+    - includes CalDavZAP 0.13.1 (see changelog_caldavzap.txt)
+    - includes CardDavMATE 0.13.1 (see changelog_carddavmate.txt)
+
+version 0.13.0 [2015-09-16]:
+    - includes CalDavZAP 0.13.0 (see changelog_caldavzap.txt)
+    - includes CardDavMATE 0.13.0 (see changelog_carddavmate.txt)
+
+version 0.12.1 [2015-03-16]:
+    - includes CalDavZAP 0.12.1 (see changelog_caldavzap.txt)
+    - includes CardDavMATE 0.12.1 (see changelog_carddavmate.txt)
+
+version 0.12.0 [2015-01-26]:
+    - includes CalDavZAP 0.12.0 (see changelog_caldavzap.txt)
+    - includes CardDavMATE 0.12.0 (see changelog_carddavmate.txt)

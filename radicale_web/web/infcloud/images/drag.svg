@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="164px" height="183px" viewBox="0 0 164 183" overflow="visible" enable-background="new 0 0 164 183"
+	 xml:space="preserve">
+<defs>
+</defs>
+<g>
+	<g>
+		<polyline fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" points="9,180 3,180 
+			3,174 		"/>
+		
+			<line fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" stroke-dasharray="12.6923,12.6923" x1="3" y1="161.308" x2="3" y2="15.346"/>
+		<polyline fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" points="3,9 3,3 9,3 		
+			"/>
+		
+			<line fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" stroke-dasharray="11.2308,11.2308" x1="20.231" y1="3" x2="149.385" y2="3"/>
+		<polyline fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" points="155,3 161,3 
+			161,9 		"/>
+		
+			<line fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" stroke-dasharray="12.6923,12.6923" x1="161" y1="21.692" x2="161" y2="167.654"/>
+		<polyline fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" points="161,174 
+			161,180 155,180 		"/>
+		
+			<line fill="none" stroke="#585858" stroke-width="6" stroke-linecap="square" stroke-miterlimit="10" stroke-dasharray="11.2308,11.2308" x1="143.77" y1="180" x2="14.615" y2="180"/>
+	</g>
+</g>
+</svg>
