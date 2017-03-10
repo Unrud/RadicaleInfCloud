@@ -334,8 +334,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 var globalNetworkCheckSettings={
 	href: location.protocol+'//'+location.hostname+
 		(location.port ? ':'+location.port: '')+
-		location.pathname.replace(RegExp('/+[^/]+/*(index\.html)?$'),'')+
-		'/caldav.php/',
+		location.pathname.replace(RegExp('(/+[^/]+/*){2}(index\.html)?$'),'')+'/',
 	timeOut: 90000,
 	lockTimeOut: 10000,
 	checkContentType: true,
@@ -416,7 +415,7 @@ var globalSyncResourcesInterval=120000;
 // If undefined or false, the synchronization button is disabled.
 // NOTE: enable this option only if you really know what are you doing!
 // Example:
-var globalEnableRefresh=false;
+var globalEnableRefresh=true;
 
 
 // globalEnableKbNavigation
