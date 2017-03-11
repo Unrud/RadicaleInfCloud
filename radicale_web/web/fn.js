@@ -173,37 +173,40 @@ function get_collections(user, password, collection, callback) {
         if (request.status === 207) {
             var xml = request.responseXML;
             var collections = [];
-            var responses = xml.querySelectorAll("*|multistatus:root > *|response");
+            var response_query = "*|multistatus:root > *|response";
+            var responses = xml.querySelectorAll(response_query);
             var i;
             for (i = 0; i < responses.length; i++) {
                 var response = responses[i];
-                var href_element = response.querySelector(":scope > *|href");
-                var resourcetype_element = response.querySelector(":scope > *|propstat > *|prop > *|resourcetype");
-                var displayname_element = response.querySelector(":scope > *|propstat > *|prop > *|displayname");
-                var calendarcolor_element = response.querySelector(":scope > *|propstat > *|prop > *|calendar-color");
-                var addressbookcolor_element = response.querySelector(":scope > *|propstat > *|prop > *|addressbook-color");
-                var calendardesc_element = response.querySelector(":scope > *|propstat > *|prop > *|calendar-description");
-                var addressbookdesc_element = response.querySelector(":scope > *|propstat > *|prop > *|addressbook-description");
-                var components_element = response.querySelector(":scope > *|propstat > *|prop > *|supported-calendar-component-set");
+                var href_element = response.querySelector(response_query + " > *|href");
+                var resourcetype_query = response_query + " > *|propstat > *|prop > *|resourcetype";
+                var resourcetype_element = response.querySelector(resourcetype_query);
+                var displayname_element = response.querySelector(response_query + " > *|propstat > *|prop > *|displayname");
+                var calendarcolor_element = response.querySelector(response_query + " > *|propstat > *|prop > *|calendar-color");
+                var addressbookcolor_element = response.querySelector(response_query + " > *|propstat > *|prop > *|addressbook-color");
+                var calendardesc_element = response.querySelector(response_query + " > *|propstat > *|prop > *|calendar-description");
+                var addressbookdesc_element = response.querySelector(response_query + " > *|propstat > *|prop > *|addressbook-description");
+                var components_query = response_query + " > *|propstat > *|prop > *|supported-calendar-component-set";
+                var components_element = response.querySelector(components_query);
                 var href = href_element ? href_element.textContent : "";
                 var displayname = displayname_element ? displayname_element.textContent : "";
                 var type = "";
                 var color = "";
                 var description = "";
                 if (resourcetype_element) {
-                    if (resourcetype_element.querySelector(":scope > *|addressbook")) {
+                    if (resourcetype_element.querySelector(resourcetype_query + " > *|addressbook")) {
                         type = CollectionType.ADDRESSBOOK;
                         color = addressbookcolor_element ? addressbookcolor_element.textContent : "";
                         description = addressbookdesc_element ? addressbookdesc_element.textContent : "";
-                    } else if (resourcetype_element.querySelector(":scope > *|calendar")) {
+                    } else if (resourcetype_element.querySelector(resourcetype_query + " > *|calendar")) {
                         if (components_element) {
-                            if (components_element.querySelector(":scope > *|comp[name=VEVENT]")) {
+                            if (components_element.querySelector(components_query + " > *|comp[name=VEVENT]")) {
                                 type = CollectionType.union(type, CollectionType.CALENDAR);
                             }
-                            if (components_element.querySelector(":scope > *|comp[name=VJOURNAL]")) {
+                            if (components_element.querySelector(components_query + " > *|comp[name=VJOURNAL]")) {
                                 type = CollectionType.union(type, CollectionType.JOURNAL);
                             }
-                            if (components_element.querySelector(":scope > *|comp[name=VTODO]")) {
+                            if (components_element.querySelector(components_query + " > *|comp[name=VTODO]")) {
                                 type = CollectionType.union(type, CollectionType.TASKS);
                             }
                         }
