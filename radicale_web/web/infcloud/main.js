@@ -788,7 +788,7 @@ function loadConfig()
 	// check username and password against the server and create config from globalNetworkCheckSettings
 	if(typeof globalNetworkCheckSettings!='undefined' && globalNetworkCheckSettings!=null)
 	{
-		if(globalLoginUsername=='' || globalLoginPassword=='')
+		if(globalLoginUsername=='')
 		{
 			$('#LoginPage').fadeTo(500, 1, function(){if(typeof globalDemoMode=='undefined') $('[data-type="system_username"]').focus()});
 			$('#LoginLoader').fadeOut(1200);
@@ -824,7 +824,7 @@ function loadConfig()
 	// load the configuration XML(s) from the network
 	if(typeof globalNetworkAccountSettings!='undefined' && globalNetworkAccountSettings!=null)
 	{
-		if(globalLoginUsername=='' || globalLoginPassword=='')
+		if(globalLoginUsername=='')
 		{
 			$('#LoginPage').fadeTo(500, 1, function(){if(typeof globalDemoMode=='undefined') $('[data-type="system_username"]').focus()});
 			$('#LoginLoader').fadeOut(1200);
