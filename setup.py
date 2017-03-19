@@ -11,7 +11,7 @@ init_path = os.path.join(os.path.dirname(__file__),
 with open(init_path) as f:
     version = re.search(r'VERSION = "([^"]+)"', f.read()).group(1)
 os.chdir("radicale_web")
-web_data = glob.glob("web/**/*[!~]", recursive=True)
+web_data = list(filter(os.path.isfile, glob.glob("web/**/*[!~]", recursive=True)))
 os.chdir(os.pardir)
 
 setup(
