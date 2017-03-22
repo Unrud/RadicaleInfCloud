@@ -15,6 +15,7 @@
 # along with Radicale Web.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import pkg_resources
 import posixpath
 import radicale
 import time
@@ -43,7 +44,7 @@ class Web:
     def __init__(self, configuration, logger):
         self.configuration = configuration
         self.logger = logger
-        self.folder = os.path.join(os.path.dirname(__file__), "web")
+        self.folder = pkg_resources.resource_filename(__name__, "web")
 
     def get(self, environ, base_prefix, path, user):
         try:
