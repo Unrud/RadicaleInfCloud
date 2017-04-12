@@ -179,8 +179,8 @@ var globalActiveApp='';
 var globalAvailableAppsArray=new Array();
 var globalEnableAppSwitch=true;
 var globalAppName='InfCloud';
-var globalVersion='0.13.1';
-var globalBuildNo=1442928610;
+var globalVersion='0.13.2rc1';
+var globalBuildNo=1448196611;
 var globalXMLCache=null;
 var globalVersionCheckURL=(location.protocol=='file:' ? 'http:' : location.protocol)+'//www.inf-it.com/versioncheck/'+globalAppName+'/?v='+globalVersion;
 var globalXClientHeader=globalAppName+' '+globalVersion+' (Inf-IT CalDAV/CardDAV Web Client)';
@@ -788,7 +788,7 @@ function loadConfig()
 	// check username and password against the server and create config from globalNetworkCheckSettings
 	if(typeof globalNetworkCheckSettings!='undefined' && globalNetworkCheckSettings!=null)
 	{
-		if(globalLoginUsername=='')
+		if(globalLoginUsername=='' || globalLoginPassword=='')
 		{
 			$('#LoginPage').fadeTo(500, 1, function(){if(typeof globalDemoMode=='undefined') $('[data-type="system_username"]').focus()});
 			$('#LoginLoader').fadeOut(1200);
@@ -824,7 +824,7 @@ function loadConfig()
 	// load the configuration XML(s) from the network
 	if(typeof globalNetworkAccountSettings!='undefined' && globalNetworkAccountSettings!=null)
 	{
-		if(globalLoginUsername=='')
+		if(globalLoginUsername=='' || globalLoginPassword=='')
 		{
 			$('#LoginPage').fadeTo(500, 1, function(){if(typeof globalDemoMode=='undefined') $('[data-type="system_username"]').focus()});
 			$('#LoginLoader').fadeOut(1200);
@@ -1977,6 +1977,9 @@ var globalDisableAnimationMessageHiding='';
 if(typeof globalContactPhotoScaleFactor==='undefined')
 	var globalContactPhotoScaleFactor=1.5;
 
+if(typeof globalContactPhotoType==='undefined' || globalContactPhotoType.match(RegExp('^(?:png|jpeg)$'))===null)
+	var globalContactPhotoType='jpeg';
+
 var globalFixedContactDataColumnsCount = 1;
 var globalContactDataColumnDefs = {
 	'CATEGORIES': {
@@ -2237,7 +2240,8 @@ function globalMainCardDAV()
 	// clone + cleanup the editor (autocomplete bug in some browsers) + store the reference in globalOrigVcardTemplate
 	var tmp=$('#vCardTemplate').clone();
 	tmp.find('input[type="text"]').val('');
-	tmp.find('textarea').text('');
+	tmp.find('[data-type="isorg"]').prop('checked', false);
+	tmp.find('textarea').val('');
 	globalOrigVcardTemplate=tmp;
 }
 

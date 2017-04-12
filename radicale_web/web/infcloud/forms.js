@@ -899,7 +899,7 @@ function showTodoForm(todo, mod, repeatOne, confirmRepeat)
 		$('#url_TODO').val(todo.url);
 		$('#location_TODO').val(todo.location);
 		$('#etagTODO').val(todo.etag);
-		$('#vcalendarHashTODO').val(hex_sha256(todo.vcalendar));
+		$('#vcalendarHashTODO').val(String(CryptoJS.SHA256(todo.vcalendar)));
 		var stringUIDcurrent=todo.vcalendar.match(vCalendar.pre['contentline_UID']);
 
 		if(stringUIDcurrent!=null)
@@ -1808,7 +1808,7 @@ function showEventForm(date, allDay, calEvent, jsEvent, mod, repeatOne, confirmR
 
 		$('#uid').val(calEvent.id);
 		$('#url_EVENT').val(calEvent.hrefUrl+'');
-		$('#vcalendarHash').val(hex_sha256(calEvent.vcalendar));
+		$('#vcalendarHash').val(String(CryptoJS.SHA256(calEvent.vcalendar)));
 		$('#etag').val(calEvent.etag);
 		var stringUIDcurrent=calEvent.vcalendar.match(vCalendar.pre['contentline_UID']);
 

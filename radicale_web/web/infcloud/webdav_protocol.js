@@ -105,7 +105,7 @@ function netCheckAndCreateConfiguration(configurationURL)
 		},
 		timeout: configurationURL.timeOut,
 		beforeSend: function(req){
-			if(globalSettings.usejqueryauth.value!=true && globalLoginUsername!='')
+			if(globalSettings.usejqueryauth.value!=true && globalLoginUsername!='' && globalLoginPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(globalLoginUsername,globalLoginPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 			req.setRequestHeader('Depth', '0');
@@ -193,7 +193,7 @@ function netLoadConfiguration(configurationURL)
 		},
 		timeout: configurationURL.timeOut,
 		beforeSend: function(req) {
-			if(globalSettings.usejqueryauth.value!=true && globalLoginUsername!='')
+			if(globalSettings.usejqueryauth.value!=true && globalLoginUsername!='' && globalLoginPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(globalLoginUsername,globalLoginPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 		},
@@ -380,7 +380,7 @@ function netSaveProperty(inputCollection, hrefProperty, inputProperty, inputValu
 		},
 		timeout: inputCollection.timeOut,
 		beforeSend: function(req){
-			if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='' && inputCollection.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(inputCollection.userAuth.userName, inputCollection.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -658,7 +658,7 @@ function DAVresourceDelegation(inputResource, index, lastIndex)
 			timeout: inputResource.timeOut,
 			beforeSend: function(req)
 			{
-				if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='')
+				if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='' && inputResource.userAuth.userPassword!='')
 					req.setRequestHeader('Authorization', basicAuth(inputResource.userAuth.userName, inputResource.userAuth.userPassword));
 
 				req.setRequestHeader('X-client', globalXClientHeader);
@@ -1074,7 +1074,7 @@ function netFindResource(inputResource, inputResourceIndex, forceLoad, indexR, l
 		},
 		timeout: inputResource.timeOut,
 		beforeSend: function(req) {
-			if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='' && inputResource.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(inputResource.userAuth.userName,inputResource.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -1248,10 +1248,10 @@ function netLoadResource(inputResource, inputHref, hrefMode, inputResourceIndex,
 			if(color=='')
 			{
 				var par=(uidBase+globalSubscribedCalendars.calendars[k].href).split('/');
-				var hash=hex_sha256(hex_sha256(par[par.length-3]+'/'+par[par.length-2]+'/'));
+				var hash=String(CryptoJS.SHA256(String(CryptoJS.SHA256(par[par.length-3]+'/'+par[par.length-2]+'/'))));
 				var hex=hash.substring(0,6);
 				while(checkColorBrightness(hex)>=252)
-					hex=hex_sha256(hex_sha256(hash)).substring(0,6);
+					hex=String(CryptoJS.SHA256(String(CryptoJS.SHA256(hash)))).substring(0,6);
 				color='#'+hex;
 			}
 			var syncRequired=true;
@@ -1522,10 +1522,10 @@ function netLoadResource(inputResource, inputHref, hrefMode, inputResourceIndex,
 						if(color=='')
 						{
 							var par=(uidBase+href).split('/');
-							var hash=hex_sha256(hex_sha256(par[par.length-3]+'/'+par[par.length-2]+'/'));
+							var hash=String(CryptoJS.SHA256(String(CryptoJS.SHA256(par[par.length-3]+'/'+par[par.length-2]+'/'))));
 							var hex=hash.substring(0,6);
 							while(checkColorBrightness(hex)>=252)
-								hex=hex_sha256(hex_sha256(hash)).substring(0,6);
+								hex=String(CryptoJS.SHA256(String(CryptoJS.SHA256(hash)))).substring(0,6);
 							color='#'+hex;
 						}
 						var ignoreAlarms=false;
@@ -1730,10 +1730,10 @@ function netLoadResource(inputResource, inputHref, hrefMode, inputResourceIndex,
 							if(color=='')
 							{
 								var par=(uidBase+href).split('/');
-								var hash=hex_sha256(hex_sha256(par[par.length-3]+'/'+par[par.length-2]+'/'));
+								var hash=String(CryptoJS.SHA256(String(CryptoJS.SHA256(par[par.length-3]+'/'+par[par.length-2]+'/'))));
 								var hex=hash.substring(0,6);
 								while(checkColorBrightness(hex)>=252)
-									hex=hex_sha256(hex_sha256(hash)).substring(0,6);
+									hex=String(CryptoJS.SHA256(String(CryptoJS.SHA256(hash)))).substring(0,6);
 								color='#'+hex;
 							}
 
@@ -1840,7 +1840,7 @@ function netLoadResource(inputResource, inputHref, hrefMode, inputResourceIndex,
 			},
 			timeout: inputResource.timeOut,
 			beforeSend: function(req){
-				if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='')
+				if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='' && inputResource.userAuth.userPassword!='')
 					req.setRequestHeader('Authorization', basicAuth(inputResource.userAuth.userName, inputResource.userAuth.userPassword));
 
 				req.setRequestHeader('X-client', globalXClientHeader);
@@ -1925,7 +1925,7 @@ function netSaveSettings(inputResource, inputSettings, isFormSave, collectionLoa
 		},
 		timeout: inputResource.timeOut,
 		beforeSend: function(req){
-			if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='' && inputResource.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(inputResource.userAuth.userName, inputResource.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -2063,7 +2063,7 @@ function deleteVcalendarFromCollection(inputUID,inputForm, putMode)
 		timeout: resourceSettings.timeOut,
 		beforeSend: function(req)
 		{
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName, resourceSettings.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -2152,7 +2152,7 @@ function moveVcalendarToCollection(accountUID, inputUID, inputEtag, inputVcalend
 	var resultTimestamp=new Date().getTime();
 	if(inputForm=='vtodo')
 		globalTodoLoaderHide = localization[globalInterfaceLanguage].txtAllSavedTodo;
-	var hex=hex_sha256(inputVcalendar+(new Date().getTime()));
+	var hex=String(CryptoJS.SHA256(inputVcalendar+(new Date().getTime())));
 
 	var tmp=delUID.match(vCalendar.pre['uidParts']);
 	var tmpDest=inputUID.match(vCalendar.pre['uidParts']);
@@ -2200,7 +2200,7 @@ function moveVcalendarToCollection(accountUID, inputUID, inputEtag, inputVcalend
 		timeout: resourceSettings.timeOut,
 		beforeSend: function(req)
 		{
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName, resourceSettings.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -2303,7 +2303,7 @@ function putVcalendarToCollection(accountUID, inputUID, inputEtag, inputVcalenda
 	//  multi-octet UTF8-characters) allowed on one line, excluding a line break (CRLF)
 	inputVcalendar=vObjectLineFolding(inputVcalendar);
 
-	var hex=hex_sha256(inputVcalendar+(new Date().getTime()));
+	var hex=String(CryptoJS.SHA256(inputVcalendar+(new Date().getTime())));
 
 	var tmp=inputUID.match(vCalendar.pre['uidParts']);
 	var collection_uid=tmp[1]+tmp[2]+'@'+tmp[3]+tmp[4]+tmp[5];
@@ -2365,7 +2365,7 @@ function putVcalendarToCollection(accountUID, inputUID, inputEtag, inputVcalenda
 		beforeSend: function(req)
 		{
 			req.setRequestHeader('Prefer', 'return=representation');
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName, resourceSettings.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -3018,7 +3018,7 @@ function CalDAVnetLoadCollection(inputCollection, forceLoad, allSyncMode, recurs
 			},
 			timeout: inputCollection.timeOut,
 			beforeSend: function(req){
-				if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='')
+				if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='' && inputCollection.userAuth.userPassword!='')
 					req.setRequestHeader('Authorization', basicAuth(inputCollection.userAuth.userName, inputCollection.userAuth.userPassword));
 
 				req.setRequestHeader('X-client', globalXClientHeader);
@@ -3058,12 +3058,19 @@ function CalDAVnetLoadCollection(inputCollection, forceLoad, allSyncMode, recurs
 					}
 					else
 						globalSettings.todopastlimit.value = null;
-					globalCalendarNumberCount--;
+
+					if(globalSettingsSaving!='' && globalFirstHideLoader)
+						globalLoadedCollectionsCount--;
+					else
+						globalCalendarNumberCount--;
+
 					CalDAVnetLoadCollection(collections[recursiveIterator], forceLoad, allSyncMode, recursiveIterator, collections);
 				}
-				if((objAJAXRequest.status==400 /* bad request */ || objAJAXRequest.status==403 /* forbidden (for stupid servers) */ || objAJAXRequest.status==501 /* unimplemented */) && inputCollection.forceSyncPROPFIND!=true /* prevent recursion */)
+				if((objAJAXRequest.status==400 /* bad request */ || objAJAXRequest.status==403 /* forbidden (for stupid servers) */ || objAJAXRequest.status==415 /* unsupported media type (SabreDAV) */ || objAJAXRequest.status==501 /* unimplemented */) && inputCollection.forceSyncPROPFIND!=true /* prevent recursion */)
 				{
 					collections[recursiveIterator].forceSyncPROPFIND=true;
+					collections[recursiveIterator].syncRequired=true;
+
 					if(inputCollection.listType=='vevent')
 					{
 						globalSettings.eventstartfuturelimit.value = null;
@@ -3071,7 +3078,12 @@ function CalDAVnetLoadCollection(inputCollection, forceLoad, allSyncMode, recurs
 					}
 					else
 						globalSettings.todopastlimit.value = null;
-					globalCalendarNumberCount--;
+
+					if(globalSettingsSaving!='' && globalFirstHideLoader)
+						globalLoadedCollectionsCount--;
+					else
+						globalCalendarNumberCount--;
+
 					CalDAVnetLoadCollection(collections[recursiveIterator], forceLoad, allSyncMode, recursiveIterator, collections);
 					return true;
 				}
@@ -3079,6 +3091,7 @@ function CalDAVnetLoadCollection(inputCollection, forceLoad, allSyncMode, recurs
 				{
 					if(collections.length>0)
 					{
+						collections[recursiveIterator].newlyAdded=false;
 						recursiveIterator++;
 						if(recursiveIterator>=collections.length && inputCollection.uid!='undefined' && inputCollection.listType=='vevent')
 						{
@@ -3305,7 +3318,7 @@ function netLoadCalendar(inputCollection, vcalendarList, syncReportSupport,  rem
 		},
 		timeout: inputCollection.timeOut,
 		beforeSend: function(req){
-			if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='' && inputCollection.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(inputCollection.userAuth.userName, inputCollection.userAuth.userPassword));
 
 			req.setRequestHeader('X-client', globalXClientHeader);
@@ -3512,7 +3525,7 @@ function netLoadCalendarSubscription(inputResource, inputCollection, recursiveIt
 		crossDomain: false,
 		timeout: 30000,
 		beforeSend: function(req) {
-			if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && inputResource.userAuth.userName!='' && inputResource.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(inputResource.userAuth.userName, inputResource.userAuth.userPassword));
 		},
 		username: (globalSettings.usejqueryauth.value==true ? inputResource.userAuth.userName : null),
@@ -3571,7 +3584,7 @@ function netLoadCalendarSubscription(inputResource, inputCollection, recursiveIt
 						realEventUID=realEventUID.replace('/','');
 					}
 
-					var hex = hex_sha256(partEvent);
+					var hex=String(CryptoJS.SHA256(partEvent));
 					if(inputCollection.urlArray != null)
 					{
 						if(inputCollection.urlArray[inputCollection.uid+realEventUID+'.ics']!=null && inputCollection.urlArray[inputCollection.uid+realEventUID+'.ics']!=undefined)
@@ -3607,7 +3620,7 @@ function netLoadCalendarSubscription(inputResource, inputCollection, recursiveIt
 						realEventUID=realEventUID.replace('/','');
 					}
 
-					var hex = hex_sha256(partEvent);
+					var hex=String(CryptoJS.SHA256(partEvent));
 					if(inputCollection.urlArray != null)
 					{
 						if(inputCollection.urlArray[inputCollection.uid+realEventUID+'.ics']!=null && inputCollection.urlArray[inputCollection.uid+realEventUID+'.ics']!=undefined)
@@ -3686,7 +3699,7 @@ function unlockCollection(inputContactObj)
 		},
 		timeout: resourceSettings.timeOut,
 		beforeSend: function(req) {
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName,resourceSettings.userAuth.userPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 			// req.setRequestHeader('Depth', '0');
@@ -3934,7 +3947,7 @@ function lockAndPerformToCollection(inputContactObj, inputFilterUID, inputPerfor
 		timeout: resourceSettings.timeOut,
 		beforeSend: function(req)
 		{
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName,resourceSettings.userAuth.userPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 			req.setRequestHeader('Depth', '0');
@@ -4088,7 +4101,7 @@ function putVcardToCollection(inputContactObjArr, inputFilterUID, recursiveMode,
 	}
 	else	// new contact
 	{
-		var vcardFile=hex_sha256(inputContactObj.vcard+(new Date().getTime()))+'.vcf';
+		var vcardFile=String(CryptoJS.SHA256(inputContactObj.vcard+(new Date().getTime())))+'.vcf';
 		var put_href=tmp[1]+tmp[3]+tmp[4]+tmp[5]+vcardFile;
 		var put_href_part=tmp[4]+tmp[5]+vcardFile;
 		inputContactObj.uid+=vcardFile;
@@ -4127,7 +4140,7 @@ function putVcardToCollection(inputContactObjArr, inputFilterUID, recursiveMode,
 		beforeSend: function(req)
 		{
 			req.setRequestHeader('Prefer', 'return=representation');
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName,resourceSettings.userAuth.userPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 			if(lockToken!=null && inputContactObj.withoutLockTocken!=true)
@@ -4304,7 +4317,7 @@ function moveVcardToCollection(inputContactObj, inputFilterUID)
 		timeout: resourceSettings.timeOut,
 		beforeSend: function(req)
 		{
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName,resourceSettings.userAuth.userPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 			if(lockToken!=null)
@@ -4400,7 +4413,7 @@ function deleteVcardFromCollection(inputContactObj, inputFilterUID, recursiveMod
 		},
 		timeout: resourceSettings.timeOut,
 		beforeSend: function(req) {
-			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='')
+			if(globalSettings.usejqueryauth.value!=true && resourceSettings.userAuth.userName!='' && resourceSettings.userAuth.userPassword!='')
 				req.setRequestHeader('Authorization', basicAuth(resourceSettings.userAuth.userName,resourceSettings.userAuth.userPassword));
 			req.setRequestHeader('X-client', globalXClientHeader);
 			if(lockToken!=null)
@@ -4692,7 +4705,7 @@ function CardDAVnetLoadCollection(inputCollection, forceLoad, forceLoadNextConta
 			},
 			timeout: inputCollection.timeOut,
 			beforeSend: function(req) {
-				if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='')
+				if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='' && inputCollection.userAuth.userPassword!='')
 					req.setRequestHeader('Authorization', basicAuth(inputCollection.userAuth.userName,inputCollection.userAuth.userPassword));
 				req.setRequestHeader('X-client', globalXClientHeader);
 				req.setRequestHeader('Depth', '1');
@@ -4716,7 +4729,7 @@ function CardDAVnetLoadCollection(inputCollection, forceLoad, forceLoadNextConta
 			error: function(objAJAXRequest, strError){
 				// POROVNAT S TYM AKO JE TO V CALDAVZAP
 				$('#intCarddav').find('.int_error').css('display','block');
-				if((objAJAXRequest.status==400 /* bad request */ || objAJAXRequest.status==403 /* forbidden (for stupid servers) */ || objAJAXRequest.status==501 /* unimplemented */) && inputCollection.forceSyncPROPFIND!=true /* prevent recursion */)
+				if((objAJAXRequest.status==400 /* bad request */ || objAJAXRequest.status==403 /* forbidden (for stupid servers) */ || objAJAXRequest.status==415 /* unsupported media type (SabreDAV) */ || objAJAXRequest.status==501 /* unimplemented */) && inputCollection.forceSyncPROPFIND!=true /* prevent recursion */)
 				{
 					collections[recursiveIterator].forceSyncPROPFIND=true;
 					CardDAVnetLoadCollection(collections[recursiveIterator], forceLoad, forceLoadNextContact, innerOperationData, recursiveIterator, collections, recursiveMode);
@@ -4894,7 +4907,7 @@ function netLoadAddressbook(inputCollection, vcardList, syncReportSupport, force
 			},
 			timeout: inputCollection.timeOut,
 			beforeSend: function(req) {
-				if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='')
+				if(globalSettings.usejqueryauth.value!=true && inputCollection.userAuth.userName!='' && inputCollection.userAuth.userPassword!='')
 					req.setRequestHeader('Authorization', basicAuth(inputCollection.userAuth.userName,inputCollection.userAuth.userPassword));
 				req.setRequestHeader('X-client', globalXClientHeader);
 				req.setRequestHeader('Depth', '0');

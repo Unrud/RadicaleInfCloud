@@ -173,10 +173,10 @@ function getRepeatTodoObject(inputRepeatObj)
 	{
 		if(tzArray.indexOf(inputTodos[iE].timeZone)==-1)
 		{
-			if(!appleTodoMode && inputRepeatObj.deleteMode && (inputRepeatObj.vcalendarHash==hex_sha256(inputTodos[iE].vcalendar)))
+			if(!appleTodoMode && inputRepeatObj.deleteMode && (inputRepeatObj.vcalendarHash==String(CryptoJS.SHA256(inputTodos[iE].vcalendar))))
 				continue;
 			var component=buildTimezoneComponent(inputTodos[iE].timeZone);
-			if(component!='' && (inputRepeatObj.vcalendarHash!=hex_sha256(inputTodos[iE].vcalendar)))
+			if(component!='' && (inputRepeatObj.vcalendarHash!=String(CryptoJS.SHA256(inputTodos[iE].vcalendar))))
 			{
 				tzArray[tzArray.length]=inputTodos[iE].timeZone;
 				tzString+=component;
@@ -184,7 +184,7 @@ function getRepeatTodoObject(inputRepeatObj)
 					tzString+='\r\n';
 				isTimeZone=true;
 			}
-			else if(component!='' && (inputRepeatObj.vcalendarHash==hex_sha256(inputTodos[iE].vcalendar)))
+			else if(component!='' && (inputRepeatObj.vcalendarHash==String(CryptoJS.SHA256(inputTodos[iE].vcalendar))))
 				origTimezone+=component;
 		}
 	}
@@ -226,12 +226,12 @@ function getRepeatTodoObject(inputRepeatObj)
 	for(var j=0;j<inputTodos.length;j++)
 	{
 		todoStringArray.splice(todoStringArray.indexOf(inputTodos[j].vcalendar),1);
-		if((inputRepeatObj.futureStart== '' &&  inputRepeatObj.vcalendarHash!=hex_sha256(inputTodos[j].vcalendar)) || inputTodos[j].rec_id!=inputRepeatObj.recurrenceId)
+		if((inputRepeatObj.futureStart== '' &&  inputRepeatObj.vcalendarHash!=String(CryptoJS.SHA256(inputTodos[j].vcalendar))) || inputTodos[j].rec_id!=inputRepeatObj.recurrenceId)
 		{
 			var stringUIDcurrent=inputTodos[j].vcalendar.match(vCalendar.pre['contentline_UID']);
 			if(stringUIDcurrent!=null)
 				stringUIDcurrent=stringUIDcurrent[0].match(vCalendar.pre['contentline_parse'])[4];
-			if((inputRepeatObj.deleteMode && inputRepeatObj.vcalendarHash==hex_sha256(inputTodos[j].vcalendar)) || (inputRepeatObj.deleteMode && !inputTodos[j].rec_id && inputRepeatObj.vcalendarUID==stringUIDcurrent) || appleTodoMode)
+			if((inputRepeatObj.deleteMode && inputRepeatObj.vcalendarHash==String(CryptoJS.SHA256(inputTodos[j].vcalendar))) || (inputRepeatObj.deleteMode && !inputTodos[j].rec_id && inputRepeatObj.vcalendarUID==stringUIDcurrent) || appleTodoMode)
 			{
 				var ruleString=inputTodos[j].vcalendar.match(vCalendar.pre['contentline_RRULE2']);
 				var origRuleString=ruleString;
@@ -322,7 +322,7 @@ function getRepeatTodoObject(inputRepeatObj)
 			var ruleString=inputTodos[j].vcalendar.match(vCalendar.pre['contentline_RRULE2']);
 			if(inputTodos[j].finalString.length>2);
 				inputTodos[j].vcalendar=inputTodos[j].vcalendar.replace(ruleString,ruleString+(inputTodos[j].finalString.substring(2,inputTodos[j].finalString.length)));
-			if(inputRepeatObj.futureStart.split(';')[0]>1 && inputRepeatObj.vcalendarHash==hex_sha256(inputTodos[j].vcalendar))
+			if(inputRepeatObj.futureStart.split(';')[0]>1 && inputRepeatObj.vcalendarHash==String(CryptoJS.SHA256(inputTodos[j].vcalendar)))
 				inputTodos[j].vcalendar=changeRuleForFuture(inputTodos[j], inputRepeatObj.futureStart.split(';')[0]);
 			if(inputTodos[j].vcalendar.indexOf('\r\n')==0 && vCalendarText.lastIndexOf('\r\n')==(vCalendarText.length-2))
 				vCalendarText+=inputTodos[j].vcalendar.substring(2,inputTodos[j].vcalendar.length);
@@ -338,7 +338,7 @@ function getRepeatTodoObject(inputRepeatObj)
 			if(inputTodos[j].finalString.length>2);
 				inputTodos[j].vcalendar=inputTodos[j].vcalendar.replace(ruleString,ruleString+(inputTodos[j].finalString.substring(2,inputTodos[j].finalString.length)));
 
-			if(inputRepeatObj.vcalendarHash==hex_sha256(inputTodos[j].vcalendar))
+			if(inputRepeatObj.vcalendarHash==String(CryptoJS.SHA256(inputTodos[j].vcalendar)))
 				inputTodos[j].vcalendar=changeRuleForFuture(inputTodos[j], 2);
 			if(inputTodos[j].vcalendar.indexOf('\r\n')==0 && vCalendarText.lastIndexOf('\r\n')==(vCalendarText.length-2))
 				vCalendarText+=inputTodos[j].vcalendar.substring(2,inputTodos[j].vcalendar.length);
@@ -2830,11 +2830,11 @@ function vcalendarTodoData(inputCollection, inputEvent, isNew)
 				{
 					byDay=pars[i].split('=')[1];
 					byDay=byDay.replace(/\d*MO/,1).replace(/\d*TU/,2).replace(/\d*WE/,3).replace(/\d*TH/,4).replace(/\d*FR/,5).replace(/\d*SA/,6).replace(/\d*SU/,0).split(',');
-					if(byDay.length>1 &&(frequency=='MONTHLY'||frequency=='YEARLY'))
-					{
-						console.log("Error:'"+inputEvent.uid+"': Unsupported recurrence rule in todo:"+vcalendar);
-						return false;
-					}
+//					if(byDay.length>1 &&(frequency=='MONTHLY'||frequency=='YEARLY'))
+//					{
+//						console.log("Error:'"+inputEvent.uid+"': Unsupported recurrence rule in todo:"+vcalendar);
+//						return false;
+//					}
 				}
 			}
 			if(!returnForValue)

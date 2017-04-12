@@ -2803,7 +2803,7 @@ function todoCheckClick(status, percent, calTodo)
 			var resultTodoObj = getRepeatTodoObject({
 				rid:calTodo.res_id,
 				uidTodo:calTodo.id,
-				vcalendarHash: hex_sha256(calTodo.vcalendar),
+				vcalendarHash: String(CryptoJS.SHA256(calTodo.vcalendar)),
 				vcalendarUID: stringUIDcurrent,
 				recurrenceId: rec_id,
 				timezoneTODO: calTodo.timeZone,
@@ -5729,29 +5729,29 @@ function processEditorElements(inputEditorRef, processingType, inputIsReadonly, 
 
 function loadImage(image)
 {
-	var canvas = $('#photo');
-	var canvasElement = canvas.get(0);
-	var imageWidth = image.width;
-	var imageHeight = image.height;
-	var canvasWidth = canvas.width()*globalContactPhotoScaleFactor;
-	var canvasHeight = canvas.height()*globalContactPhotoScaleFactor;
-	var clipStartX = 0;
-	var clipStartY = 0;
-	var clipWidth = imageWidth;
-	var clipHeight = imageHeight;
+	var canvas=$('#photo');
+	var canvasElement=canvas.get(0);
+	var imageWidth=image.width;
+	var imageHeight=image.height;
+	var canvasWidth=(globalContactPhotoScaleFactor===null ? image.width : canvas.width()*globalContactPhotoScaleFactor);
+	var canvasHeight=(globalContactPhotoScaleFactor===null ? image.height : canvas.height()*globalContactPhotoScaleFactor);
+	var clipStartX=0;
+	var clipStartY=0;
+	var clipWidth=imageWidth;
+	var clipHeight=imageHeight;
 
-	canvasElement.width = canvasWidth;
-	canvasElement.height = canvasHeight;
+	canvasElement.width=canvasWidth;
+	canvasElement.height=canvasHeight;
 
-	if(imageWidth-canvasWidth < imageHeight-canvasHeight) {
-		var clipLength = Math.ceil((imageHeight-imageWidth/canvasWidth*canvasHeight)/2);
-		clipStartY = clipLength;
-		clipHeight = imageHeight-clipLength*2;
+	if(imageWidth-canvasWidth<imageHeight-canvasHeight) {
+		var clipLength=Math.ceil((imageHeight-imageWidth/canvasWidth*canvasHeight)/2);
+		clipStartY=clipLength;
+		clipHeight=imageHeight-clipLength*2;
 	}
 	else {
-		var clipLength = Math.ceil((imageWidth-imageHeight/canvasHeight*canvasWidth)/2);
-		clipStartX = clipLength;
-		clipWidth = imageWidth-clipLength*2;
+		var clipLength=Math.ceil((imageWidth-imageHeight/canvasHeight*canvasWidth)/2);
+		clipStartX=clipLength;
+		clipWidth=imageWidth-clipLength*2;
 	}
 
 	canvasElement.getContext('2d').drawImage(image, clipStartX, clipStartY, clipWidth, clipHeight, 0, 0, canvasWidth, canvasHeight);
@@ -5778,7 +5778,7 @@ function CardDAVeditor_cleanup(inputLoadEmpty, inputIsCompany)
 		$('<svg data-type="select_icon"></svg>').css('display', 'none').insertAfter(globalRefVcardEditor.find('select[data-type$="_type"]'));
 
 		if($.browser.msie && parseInt($.browser.version, 10)==10) /* IE 10 (because there are no more conditional comments) */
-			globalRefVcardEditor.find('[data-type="\\%note"]').find('textarea[data-type="value"]').text('').attr('placeholder',$('[data-type="\\%note"]').find('textarea[data-type="value"]').attr('placeholder'));
+			globalRefVcardEditor.find('[data-type="\\%note"]').find('textarea[data-type="value"]').val('').attr('placeholder',$('[data-type="\\%note"]').find('textarea[data-type="value"]').attr('placeholder'));
 	}
 	/*************************** END OF BAD HACKS SECTION ***************************/
 

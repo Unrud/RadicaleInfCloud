@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#V 1
+#V 20151122135011
 
 CACHE:
 addressbook.js
@@ -159,8 +159,8 @@ lib/jquery.placeholder-1.1.9.js
 lib/jquery.quicksearch.js
 lib/jquery.tagsinput.js
 lib/jquery-ui-1.11.4.custom.js
-lib/jshash-2.2_sha256.js
 lib/rrule.js
+lib/sha256.js
 lib/spectrum.js
 
 NETWORK:

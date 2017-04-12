@@ -23,6 +23,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // NOTE: see readme.txt before you start to configure this client!
 
 
+// NOTE: if this option is enabled you will get notifications for devel builds!
+var globalEnableDevelBuilds=true;
+
+
+
 // NOTE: do not forget to execute the cache_update.sh script every time you
 // update this configuration file or any other files (otherwise your browser
 // will use the previous version of files stored in HTML5 cache). Alternatively
@@ -334,7 +339,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 var globalNetworkCheckSettings={
 	href: location.protocol+'//'+location.hostname+
 		(location.port ? ':'+location.port: '')+
-		location.pathname.replace(RegExp('(/+[^/]+/*){2}(index\.html)?$'),'')+'/',
+		location.pathname.replace(RegExp('/+[^/]+/*(index\.html)?$'),'')+
+		'/caldav.php/',
 	timeOut: 90000,
 	lockTimeOut: 10000,
 	checkContentType: true,
@@ -415,7 +421,7 @@ var globalSyncResourcesInterval=120000;
 // If undefined or false, the synchronization button is disabled.
 // NOTE: enable this option only if you really know what are you doing!
 // Example:
-var globalEnableRefresh=true;
+var globalEnableRefresh=false;
 
 
 // globalEnableKbNavigation
@@ -463,6 +469,7 @@ var globalEnableKbNavigation=true;
 //   it_IT (Italiano [Italian]; thanks Luca Ferrario)
 //   ja_JP (日本語 [Japan]; thanks Muimu Nakayama)
 //   hu_HU (Magyar [Hungarian])
+//   nb_NO (Norsk (bokmål) [Norwegian]; thanks Tore Ørpetveit)
 //   nl_NL (Nederlands [Dutch]; thanks Johan Vromans)
 //   sk_SK (Slovenčina [Slovak])
 //   tr_TR (Türkçe [Turkish]; thanks Selcuk Pultar)
@@ -524,7 +531,7 @@ var globalResourceAlphabetSorting=true;
 // If undefined (or empty), update notifications will be shown to all users.
 // Example:
 //   globalNewVersionNotifyUsers=['admin', 'peter'];
-var globalNewVersionNotifyUsers=null;
+var globalNewVersionNotifyUsers=[];
 
 
 // globalDatepickerFormat
@@ -1096,6 +1103,30 @@ var globalAddressCountryFavorites=[];
 //   var globalContactStoreFN=[' last', ' middle', ' first'];
 //   var globalContactStoreFN=['last', ', middle', ' ,first'];
 var globalContactStoreFN=['prefix',' last',' middle',' first',' suffix'];
+
+
+// globalContactPhotoType
+// This option specifies the type of the image which will be stored to the
+// server if you add a contact photo.
+// Supported values are:
+//   jpeg
+//   png
+// If undefined or invalid value is specified then 'jpeg' is used.
+// Examples:
+//   var globalContactPhotoType='jpeg';
+//   var globalContactPhotoType='png';
+
+
+// globalContactPhotoScaleFactor
+// This options specifies the scale factor of the contact photo relative to
+// the photo box size in the contact editor interface.
+// For example if this options is set to 1.5 and the photo box size in the
+// interface is 164x183px, the resulting image size will be 246x274px.
+// If undefined then 1.5 is used, if set to null (not recommended) then the
+// original size of the image is retained (resize functionality is disabled).
+// Examples:
+//   var globalContactPhotoScaleFactor=1.5;
+//   var globalContactPhotoScaleFactor=null;
 
 
 // globalGroupContactsByCompanies

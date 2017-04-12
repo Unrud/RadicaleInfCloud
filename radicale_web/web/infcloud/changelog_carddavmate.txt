@@ -3,6 +3,16 @@ CardDavMATE Changelog
 
 NOTE: if you are interested in integrated version of CardDavMATE and CalDavZAP (our CalDAV web client) please use InfCloud - http://www.inf-it.com/open-source/clients/infcloud/
 
+version 0.13.2 [2015-xx-xx]:
+- note: do not forget to execute the cache_update.sh script every time you update your configuration or any other file (otherwise your browser will use the previous version of files stored in HTML5 cache); alternatively you can update the cache.manifest manually - edit the second line beginning with "#V 20" to anything else (this file simple needs "some" change)
+- configuration - added globalContactPhotoType option which allows to specify the contact photo image type stored on the server (supported formats: 'jpeg' and 'png')
+- configuration - added globalContactPhotoScaleFactor option which allows to specify the scale factor of contact photo stored on the server (relative to the editor photo box size) or completely disable the image resize functionality (not recommended)
+- added Norwegian localization (nb_NO) - thanks Tore Ørpetveit
+- added fallback to PROPFIND after 415 error response to REPORT request (SabreDAV)
+- changed default contact photo image type stored on the server from 'png' to 'jpeg' (see also the new globalContactPhotoType configuration option)
+- replaced jsSHA2 by CryptoJS (which provides additional functionality)
+- workaround for a mysterious textarea bug which occurs randomly (even if empty data is inserted into DOM chrome based browsers show data from random calendar entry)
+
 version 0.13.1 [2015-09-22]:
 - note: do not forget to execute the cache_update.sh script every time you update your configuration or any other file (otherwise your browser will use the previous version of files stored in HTML5 cache); alternatively you can update the cache.manifest manually - edit the second line beginning with "#V 20" to anything else (this file simple needs "some" change)
 - changed login screen autocomplete behaviour - we do not prevent browsers from remembering login/password anymore

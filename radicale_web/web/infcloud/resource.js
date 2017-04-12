@@ -1202,7 +1202,7 @@ function ResourceCardDAVList()
 					{
 						var tmp2=globalAddressbookList.getContactByUID(ui.draggable.attr('data-id'));
 						// here we generate the destination for MOVE (we don't use the old vCard file name to minimalize the possible conflict situations)
-						var tmp3=($(this).attr('data-id')+hex_sha256(tmp2.vcard+(new Date().getTime()))+'.vcf').match(RegExp('^(https?://)([^@/]+(?:@[^@/]+)?)@([^/]+)(.*/)([^/]+/)([^/]*)','i'));
+						var tmp3=($(this).attr('data-id')+String(CryptoJS.SHA256(tmp2.vcard+(new Date().getTime())))+'.vcf').match(RegExp('^(https?://)([^@/]+(?:@[^@/]+)?)@([^/]+)(.*/)([^/]+/)([^/]*)','i'));
 						tmp2.moveDestUID=$(this).attr('data-id');
 						tmp2.moveDest=tmp3[1]+tmp3[3]+tmp3[4]+tmp3[5]+tmp3[6];
 						// we need to store the ui object references for error handling in the GUI

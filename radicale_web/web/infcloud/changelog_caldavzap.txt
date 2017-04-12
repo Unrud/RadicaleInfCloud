@@ -3,6 +3,15 @@ CalDavZAP Changelog
 
 NOTE: if you are interested in integrated version of CalDavZAP and CardDavMATE (our CardDAV web client) please use InfCloud - http://www.inf-it.com/open-source/clients/infcloud/
 
+version 0.1x.x [2015-xx-xx]:
+- note: do not forget to execute the cache_update.sh script every time you update your configuration or any other file (otherwise your browser will use the previous version of files stored in HTML5 cache); alternatively you can update the cache.manifest manually - edit the second line beginning with "#V 20" to anything else (this file simple needs "some" change)
+- added Norwegian localization (nb_NO) - thanks Tore Ørpetveit
+- added fallback to PROPFIND after 415 error response to REPORT request (SabreDAV)
+- replaced jsSHA2 by CryptoJS (which provides additional functionality)
+- fixed "Unsupported recurrence rule" problem for certain valid RRULEs
+- fixed loading of collections in certain (very specific) cases
+- updated timezone.js to latest IANA timezone database
+
 version 0.13.1 [2015-09-22]:
 - note: do not forget to execute the cache_update.sh script every time you update your configuration or any other file (otherwise your browser will use the previous version of files stored in HTML5 cache); alternatively you can update the cache.manifest manually - edit the second line beginning with "#V 20" to anything else (this file simple needs "some" change)
 - changed login screen autocomplete behaviour - we do not prevent browsers from remembering login/password anymore

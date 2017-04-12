@@ -1155,10 +1155,10 @@ function dataToVcalendar(operation, accountUID, inputUID, inputEtag, delUID,isFo
 	{
 		if(tzArray.indexOf(inputEvents[iE].timeZone)==-1)
 		{
-			if(inputEvents[iE].allDay ||(deleteMode && ($('#vcalendarHash').val()==hex_sha256(inputEvents[iE].vcalendar))))
+			if(inputEvents[iE].allDay ||(deleteMode && ($('#vcalendarHash').val()==String(CryptoJS.SHA256(inputEvents[iE].vcalendar)))))
 				continue;
 			var component=buildTimezoneComponent(inputEvents[iE].timeZone);
-			if(component!='' && ($('#vcalendarHash').val()!=hex_sha256(inputEvents[iE].vcalendar)))
+			if(component!='' && ($('#vcalendarHash').val()!=String(CryptoJS.SHA256(inputEvents[iE].vcalendar))))
 			{
 				tzArray[tzArray.length]=inputEvents[iE].timeZone;
 				tzString+=component;
@@ -1166,7 +1166,7 @@ function dataToVcalendar(operation, accountUID, inputUID, inputEtag, delUID,isFo
 					tzString+='\r\n';
 				isTimeZone=true;
 			}
-			else if(component!='' && $('#vcalendarHash').val()==hex_sha256(inputEvents[iE].vcalendar))
+			else if(component!='' && $('#vcalendarHash').val()==String(CryptoJS.SHA256(inputEvents[iE].vcalendar)))
 				origTimezone+=component;
 		}
 	}
@@ -1182,13 +1182,13 @@ function dataToVcalendar(operation, accountUID, inputUID, inputEtag, delUID,isFo
 	for(var j=0;j<inputEvents.length;j++)
 	{
 		eventStringArray.splice(eventStringArray.indexOf(inputEvents[j].vcalendar),1);
-		if(($('#futureStart').val()== '' &&  $('#vcalendarHash').val()!=hex_sha256(inputEvents[j].vcalendar)) || inputEvents[j].rec_id!=$('#recurrenceID').val())
+		if(($('#futureStart').val()== '' &&  $('#vcalendarHash').val()!=String(CryptoJS.SHA256(inputEvents[j].vcalendar))) || inputEvents[j].rec_id!=$('#recurrenceID').val())
 		{
 			var stringUIDcurrent=inputEvents[j].vcalendar.match(vCalendar.pre['contentline_UID']);
 			if(stringUIDcurrent!=null)
 				stringUIDcurrent=stringUIDcurrent[0].match(vCalendar.pre['contentline_parse'])[4];
 
-			if((deleteMode && $('#vcalendarHash').val()==hex_sha256(inputEvents[j].vcalendar)) || (deleteMode && !inputEvents[j].rec_id && $('#vcalendarUID').val()==stringUIDcurrent))
+			if((deleteMode && $('#vcalendarHash').val()==String(CryptoJS.SHA256(inputEvents[j].vcalendar))) || (deleteMode && !inputEvents[j].rec_id && $('#vcalendarUID').val()==stringUIDcurrent))
 			{
 				var ruleString=inputEvents[j].vcalendar.match(vCalendar.pre['contentline_RRULE2']);
 				var origRuleString=ruleString;
@@ -1235,7 +1235,7 @@ function dataToVcalendar(operation, accountUID, inputUID, inputEtag, delUID,isFo
 		}
 		else if($('#futureStart').val().split(';')[0]!='' && $('#futureStart').val().split(';')[1]!=inputEvents[j].start)
 		{
-			if($('#futureStart').val().split(';')[0]>1 && $('#vcalendarHash').val()==hex_sha256(inputEvents[j].vcalendar))
+			if($('#futureStart').val().split(';')[0]>1 && $('#vcalendarHash').val()==String(CryptoJS.SHA256(inputEvents[j].vcalendar)))
 				inputEvents[j].vcalendar=changeRuleForFuture(inputEvents[j], $('#futureStart').val().split(';')[0]);
 
 			if(inputEvents[j].vcalendar.indexOf('\r\n')==0 && vCalendarText.lastIndexOf('\r\n')==(vCalendarText.length-2))
@@ -1248,7 +1248,7 @@ function dataToVcalendar(operation, accountUID, inputUID, inputEtag, delUID,isFo
 		}
 		else if(deleteMode && $('#futureStart').val().split(';')[0]!='' && $('#futureStart').val().split(';')[1]==inputEvents[j].start)
 		{
-			if($('#vcalendarHash').val()==hex_sha256(inputEvents[j].vcalendar))
+			if($('#vcalendarHash').val()==String(CryptoJS.SHA256(inputEvents[j].vcalendar)))
 			{
 				inputEvents[j].vcalendar=changeRuleForFuture(inputEvents[j], 2);
 			}
@@ -3674,11 +3674,11 @@ function getDateFromDay(objComponent, t, disableRecursion,uid)
 					{
 						byDay=pars[i].split('=')[1];
 						byDay=byDay.replace(/\d*MO/,1).replace(/\d*TU/,2).replace(/\d*WE/,3).replace(/\d*TH/,4).replace(/\d*FR/,5).replace(/\d*SA/,6).replace(/\d*SU/,0).split(',');
-						if(byDay.length>1 &&(frequency=='MONTHLY'||frequency=='YEARLY'))
-						{
-							console.log("Error:'"+inputEvent.uid+"': Unsupported recurrence rule in event:"+vcalendar);
-							return false;
-						}
+//						if(byDay.length>1 &&(frequency=='MONTHLY'||frequency=='YEARLY'))
+//						{
+//							console.log("Error:'"+inputEvent.uid+"': Unsupported recurrence rule in event:"+vcalendar);
+//							return false;
+//						}
 					}
 				}
 				if(!returnForValue)
@@ -4733,7 +4733,7 @@ function dataToVcard(accountUID, inputUID, inputFilterUID, inputEtag)
 // PHOTO
 	if(globalDisabledContactAttributes.indexOf('PHOTO')==-1 && !tmpvCardEditorRef.find('#photo').hasClass('photo_blank'))
 	{
-		var value = $('#photoURLHidden').val() || tmpvCardEditorRef.find('#photo').get(0).toDataURL('image/png');
+		var value=$('#photoURLHidden').val() || tmpvCardEditorRef.find('#photo').get(0).toDataURL('image/'+globalContactPhotoType).replace(RegExp('^data:(?:image/.*?;)?(?:base64,)?', 'i'), '');
 		if(vCard.tplM['contentline_PHOTO']!=null && (process_elem=vCard.tplM['contentline_PHOTO'][0])!=undefined)
 		{
 			// replace the object and related objects' group names (+ append the related objects after the processed)
@@ -4752,7 +4752,7 @@ function dataToVcard(accountUID, inputUID, inputFilterUID, inputEtag)
 
 		// Data URL (non-remote) will always be a binary encoded png image
 		if($('#photoURLHidden').val()==='') {
-			process_elem=process_elem.replace('##:::##params_wsc##:::##', ';ENCODING=b;TYPE=png');
+			process_elem=process_elem.replace('##:::##params_wsc##:::##', ';ENCODING=b;TYPE='+globalContactPhotoType);
 		}
 		// For remote URL, we can't reliably determine its type, so we just append the VALUE=URI param
 		else {
@@ -5800,7 +5800,7 @@ function vcardToData(inputContact, inputIsReadonly, inputIsCompany, inputEditorM
 					// parsed (contentline_parse) = [1]->"group.", [2]->"name", [3]->";param;param", [4]->"value"
 					parsed=vcard_element[0].match(vCard.pre['contentline_parse']);
 
-					tmpvCardEditorRef.find('[data-type="\\%note"]').find('textarea').text(vcardUnescapeValue(parsed[4])).trigger('autosize.resize');
+					tmpvCardEditorRef.find('[data-type="\\%note"]').find('textarea').val(vcardUnescapeValue(parsed[4])).trigger('autosize.resize');
 
 					// values not directly supported by the editor (old values are kept intact)
 					vCard.tplM['contentline_NOTE'][0]=vCard.tplC['contentline_NOTE'];
@@ -5829,6 +5829,8 @@ function vcardToData(inputContact, inputIsReadonly, inputIsCompany, inputEditorM
 					return false;	// vcard NOTE present more than once
 				}
 			}
+			else	// force set the textarea value to empty string (workaround for a specific bug of webkit based browsers /memory overflow?/)
+				tmpvCardEditorRef.find('[data-type="\\%note"]').find('textarea').val('').trigger('autosize.resize');
 		}
 //console.timeEnd('NOTE timer');
 
@@ -7305,7 +7307,8 @@ function vcardToData(inputContact, inputIsReadonly, inputIsCompany, inputEditorM
 		//clean error message
 		$('#ABMessage').height('0');
 
-		$('#ABContact').empty().append(tmpvCardEditorRef);
+		$('#ABContact').children().remove();
+		$('#ABContact').append(tmpvCardEditorRef);
 
 		var foundGroup=0;
 		for(var adr in globalAddressbookList.vcard_groups)
