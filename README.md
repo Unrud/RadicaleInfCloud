@@ -1,6 +1,6 @@
 # Web interface for Radicale
 
-Create, edit and delete calendars and addressbooks via a simple web interface.
+Create, edit and delete calendars and address books via a simple web interface.
 
 The package also includes [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) which allows you to manage appointments, tasks and contacts in the browser.
 
