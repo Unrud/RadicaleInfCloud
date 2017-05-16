@@ -19,3 +19,9 @@ I created [a fork of Radicale](https://github.com/Unrud/Radicale/) which include
 ![Login](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_login.png)
 ![Overview](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_overview.png)
 ![New Collection](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_new_collection.png)
+
+## License
+
+[AGPL-3.0](https://github.com/Unrud/RadicaleWeb/blob/master/COPYING) for the whole package because [InfCloud](https://github.com/Unrud/RadicaleWeb/blob/master/radicale_web/web/infcloud/) is included.
+
+[GPL-3.0](https://github.com/Unrud/RadicaleWeb/blob/master/COPYING_GPL) for RadicaleWeb without InfCloud.
