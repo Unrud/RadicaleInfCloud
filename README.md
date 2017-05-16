@@ -10,7 +10,7 @@ The package also includes [InfCloud](https://www.inf-it.com/open-source/clients/
 
 The official version of [Radicale](https://github.com/Kozea/Radicale/) doesn't support this package (yet) and is missing a WebDAV features that is required by InfCloud.
 
-I created a fork of Radicale which includes all necessary pull requests:
+I created [a fork of Radicale](https://github.com/Unrud/Radicale/) which includes all necessary pull requests:
 
     pip3 install --upgrade git+https://github.com/Unrud/Radicale
 
