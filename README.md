@@ -13,3 +13,9 @@ The official version of [Radicale](https://github.com/Kozea/Radicale/) doesn't s
 I created a fork of Radicale which includes all necessary pull requests:
 
     pip3 install --upgrade git+https://github.com/Unrud/Radicale
+
+## Screenshots
+
+![Login](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_login.png)
+![Overview](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_overview.png)
+![New Collection](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_new_collection.png)
