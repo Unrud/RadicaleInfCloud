@@ -17,42 +17,39 @@
 import os
 import pkg_resources
 import posixpath
-import radicale
 import time
 
 from http import client
+from radicale import storage, web
+from radicale.web import NOT_FOUND, MIMETYPES, FALLBACK_MIMETYPE
 
 VERSION = "2.0.0"
 
-MIMETYPES = {
-    ".css": "text/css",
-    ".eot": "application/vnd.ms-fontobject",
-    ".gif": "image/gif",
-    ".html": "text/html",
-    ".js": "application/javascript",
-    ".manifest": "text/cache-manifest",
-    ".png": "image/png",
-    ".svg": "image/svg+xml",
-    ".ttf": "application/font-sfnt",
-    ".txt": "text/plain",
-    ".woff": "application/font-woff",
-    ".woff2": "font/woff2",
-    ".xml": "text/xml"}
-FALLBACK_MIMETYPE = "application/octet-stream"
 
-class Web:
-    def __init__(self, configuration, logger):
-        self.configuration = configuration
-        self.logger = logger
-        self.folder = pkg_resources.resource_filename(__name__, "web")
+class Web(web.Web):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.infcloud_folder = pkg_resources.resource_filename(__name__, "web")
 
     def get(self, environ, base_prefix, path, user):
+        if not path.startswith("/.web/infcloud/") and path != "/.web/infcloud":
+            status, headers, answer = super().get(environ, base_prefix, path,
+                                                  user)
+            if status == client.OK and path in ("/.web/", "/.web/index.html"):
+                answer = answer.replace(b"""\
+        <nav>
+            <ul>""", b"""\
+        <nav>
+            <ul>
+                <li><a href="infcloud">InfCloud</a></li>""")
+            return status, headers, answer
         try:
-            filesystem_path = radicale.storage.path_to_filesystem(
-                self.folder, path[len("/.web"):])
+            filesystem_path = storage.path_to_filesystem(
+                self.infcloud_folder, path[len("/.web/infcloud"):])
         except ValueError as e:
-            self.logger.debug(e)
-            return radicale.NOT_FOUND
+            self.logger.debug("Web content with unsafe path %r requested: %s",
+                              path, e, exc_info=True)
+            return NOT_FOUND
         if os.path.isdir(filesystem_path) and not path.endswith("/"):
             location = posixpath.basename(path) + "/"
             return (client.SEE_OTHER,
@@ -61,7 +58,7 @@ class Web:
         if os.path.isdir(filesystem_path):
             filesystem_path = os.path.join(filesystem_path, "index.html")
         if not os.path.isfile(filesystem_path):
-            return radicale.NOT_FOUND
+            return NOT_FOUND
         content_type = MIMETYPES.get(
             os.path.splitext(filesystem_path)[1].lower(), FALLBACK_MIMETYPE)
         with open(filesystem_path, "rb") as f:

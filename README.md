@@ -1,27 +1,19 @@
-# Web interface for Radicale
+# InfCloud for Radicale
 
-Create, edit and delete calendars and address books via a simple web interface.
+Integrate [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) into Radicale's web interface.
 
-The package also includes [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) which allows you to manage appointments, tasks and contacts in the browser.
+InfCloud allows you to to manage appointments, tasks and contacts in the browser.
 
 ## Installation
 
-    pip3 install --upgrade git+https://github.com/Unrud/RadicaleWeb
+    pip3 install --upgrade git+https://github.com/Unrud/RadicaleInfCloud
 
-The official version of [Radicale](https://github.com/Kozea/Radicale/) doesn't support this package (yet) and is missing a WebDAV features that is required by InfCloud.
-
-I created [a fork of Radicale](https://github.com/Unrud/Radicale/) which includes all necessary pull requests:
-
-    pip3 install --upgrade git+https://github.com/Unrud/Radicale
-
-## Screenshots
-
-![Login](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_login.png)
-![Overview](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_overview.png)
-![New Collection](https://github.com/Unrud/RadicaleWeb/raw/master/etc/screenshot_new_collection.png)
+You need the
+[development version of Radicale](https://github.com/Kozea/Radicale).
+Set the configuration option `type` in the `web` section to `radicale_infcloud`.
 
 ## License
 
-[AGPL-3.0](https://github.com/Unrud/RadicaleWeb/blob/master/COPYING) for the whole package because [InfCloud](https://github.com/Unrud/RadicaleWeb/blob/master/radicale_web/web/infcloud/) is included.
+[AGPL-3.0](https://github.com/Unrud/RadicaleWeb/blob/master/COPYING) because [InfCloud](https://github.com/Unrud/RadicaleInfCloud/blob/master/radicale_infcloud/web/) is included.
 
-[GPL-3.0](https://github.com/Unrud/RadicaleWeb/blob/master/COPYING_GPL) for RadicaleWeb without InfCloud.
+[GPL-3.0](https://github.com/Unrud/RadicaleWeb/blob/master/COPYING_GPL) for `radicale_infcloud/__init__.py`
