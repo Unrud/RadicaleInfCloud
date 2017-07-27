@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import glob
 import os
 import re
 
@@ -11,7 +10,9 @@ init_path = os.path.join(os.path.dirname(__file__),
 with open(init_path) as f:
     version = re.search(r'VERSION = "([^"]+)"', f.read()).group(1)
 os.chdir("radicale_infcloud")
-web_data = list(filter(os.path.isfile, glob.glob("web/**/*[!~]", recursive=True)))
+web_data = sum(([os.path.join(root, f) for f in files
+                 if not f.startswith(".") and not f.endswith("~")]
+                for root, _, files in os.walk("web")), [])
 os.chdir(os.pardir)
 
 setup(
