@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import re
 
 from setuptools import setup
 
-init_path = os.path.join(os.path.dirname(__file__),
-                         "radicale_infcloud", "__init__.py")
-with open(init_path) as f:
-    version = re.search(r'VERSION = "([^"]+)"', f.read()).group(1)
+VERSION = "2.0.0"
+
 os.chdir("radicale_infcloud")
 web_data = sum(([os.path.join(root, f) for f in files
                  if not f.startswith(".") and not f.endswith("~")]
@@ -17,7 +14,7 @@ os.chdir(os.pardir)
 
 setup(
     name="Radicale_InfCloud",
-    version=version,
+    version=VERSION,
     description="InfCloud for Radicale",
     author="Unrud",
     author_email="unrud@openaliasbox.org",

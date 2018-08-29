@@ -23,8 +23,6 @@ from http import client
 from radicale import storage, web
 from radicale.web import NOT_FOUND, MIMETYPES, FALLBACK_MIMETYPE
 
-VERSION = "2.0.0"
-
 
 class Web(web.Web):
     def __init__(self, *args, **kwargs):
