@@ -17,7 +17,7 @@ setup(
     version=VERSION,
     description="InfCloud for Radicale",
     author="Unrud",
-    author_email="unrud@openaliasbox.org",
+    author_email="unrud@outlook.com",
     url="http://github.com/Unrud/RadicaleWeb",
     license="GNU AGPL v3",
     platforms="Any",
