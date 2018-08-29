@@ -22,4 +22,5 @@ setup(
     license="GNU AGPL v3",
     platforms="Any",
     packages=["radicale_infcloud"],
-    package_data={"radicale_infcloud": web_data})
+    package_data={"radicale_infcloud": web_data},
+    install_requires=["radicale>=2.1.0"])
