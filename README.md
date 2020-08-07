@@ -7,7 +7,7 @@ InfCloud allows you to to manage appointments, tasks and contacts in the browser
 ## Installation
 
 ```shell
-$ python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud
+$ python3 -m pip install --upgrade https://github.com/Unrud/RadicaleInfCloud/archive/master.tar.gz
 ```
 
 ## Configuration
