@@ -757,7 +757,7 @@ var globalTimeZoneSupport=true;
 // timezones (defined in timezones.js):
 // grep "'[^']\+': {" timezones.js | sed -Ee "s#(\s*'|':\s*\{)##g"
 // Example:
-var globalTimeZone='Europe/Berlin';
+var globalTimeZone='Australia/Brisbane';
 
 
 // globalTimeZonesEnabled
