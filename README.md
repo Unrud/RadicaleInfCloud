@@ -4,6 +4,9 @@ Integrate [InfCloud](https://www.inf-it.com/open-source/clients/infcloud/) into 
 
 InfCloud allows you to to manage appointments, tasks and contacts in the browser.
 
+**Bug:** At least one calendar (appointments + tasks) and one addressbook must exist
+for InfCloud to work properly. Otherwise the "Refresh" button is broken.
+
 ## Installation
 
 ```shell
