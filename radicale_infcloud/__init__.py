@@ -20,7 +20,10 @@ from radicale.web import internal
 
 import pkg_resources
 
-PLUGIN_CONFIG_SCHEMA = {"web": {}}
+PLUGIN_CONFIG_SCHEMA = {"web": {
+    "infcloud_config": {
+        "value": "",
+        "type": str}}}
 
 
 class Web(internal.Web):
@@ -42,4 +45,6 @@ class Web(internal.Web):
 <nav>
     <ul>
         <li><a href="infcloud">InfCloud</a></li>""")
+        if status == client.OK and path == "/.web/infcloud/config.js":
+            answer += self.configuration.get("web", "infcloud_config").encode()
         return status, headers, answer
