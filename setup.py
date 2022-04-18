@@ -6,11 +6,11 @@ from setuptools import setup
 
 VERSION = "3.1.1"
 
-os.chdir("radicale_infcloud")
-web_data = sum(([os.path.join(root, f) for f in files
-                 if not f.startswith(".") and not f.endswith("~")]
-                for root, _, files in os.walk("web")), [])
-os.chdir(os.pardir)
+package_path = os.path.join(os.path.dirname(__file__), "radicale_infcloud")
+web_data = sum((
+    [os.path.relpath(os.path.join(root, f), package_path)
+     for f in files if not f.startswith(".") and not f.endswith("~")]
+    for root, _, files in os.walk(os.path.join(package_path, "web"))), [])
 
 setup(
     name="Radicale_InfCloud",
