@@ -18,8 +18,6 @@ from http import client
 from radicale import httputils
 from radicale.web import internal
 
-import pkg_resources
-
 PLUGIN_CONFIG_SCHEMA = {"web": {
     "infcloud_config": {
         "value": "",
@@ -27,14 +25,15 @@ PLUGIN_CONFIG_SCHEMA = {"web": {
 
 
 class Web(internal.Web):
+
     def __init__(self, configuration):
         super().__init__(configuration.copy(PLUGIN_CONFIG_SCHEMA))
-        self.infcloud_folder = pkg_resources.resource_filename(__name__, "web")
 
     def get(self, environ, base_prefix, path, user):
         if path == "/.web/infcloud/" or path.startswith("/.web/infcloud"):
-            status, headers, answer = httputils.serve_folder(
-                self.infcloud_folder, base_prefix, path, "/.web/infcloud")
+            status, headers, answer = httputils.serve_resource(
+                "radicale_infcloud", "web", base_prefix, path,
+                "/.web/infcloud")
         else:
             status, headers, answer = super().get(
                 environ, base_prefix, path, user)

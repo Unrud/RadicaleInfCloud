@@ -4,7 +4,7 @@ import os
 
 from setuptools import setup
 
-VERSION = "3.1.1"
+VERSION = "3.1.6"
 
 package_path = os.path.join(os.path.dirname(__file__), "radicale_infcloud")
 web_data = sum((
@@ -23,4 +23,4 @@ setup(
     platforms="Any",
     packages=["radicale_infcloud"],
     package_data={"radicale_infcloud": web_data},
-    install_requires=["radicale>=3.1.1"])
+    install_requires=["radicale>=3.1.6"])
