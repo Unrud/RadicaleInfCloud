@@ -31,6 +31,35 @@ function updateTodoFormDimensions(setHeight)
 	}
 }
 
+function dragOverHandler(event) {
+	//if (window.console) {
+	//	console.log("dragOverHandler",event);
+	//}
+	event.preventDefault();
+	event.stopPropagation();
+}
+
+/* Incomplete import process. The function logs to console but does not use the vcard contents. */
+function dropHandler(event) {
+	if (event) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (window.console) {
+			console.log("dropHandler",event);
+		}
+		if(event.dataTransfer && event.dataTransfer && event.dataTransfer.files.length > 0) {
+			if(window.console){console.log("files",event.dataTransfer.files);}
+			for (let f of event.dataTransfer.files) {
+				if(window.console){console.log("file:",f)};
+				let reader = new FileReader();
+				reader.readAsText(f);
+				reader.onload = function(){if(window.console){console.log(reader.result)}};
+				reader.onerror = function(){if(window.console){console.log(reader.error)}};
+			}
+		}
+	}
+}
+
 function updateEventFormDimensions(setHeight)
 {
 	$('#CAEvent').css('width','');
@@ -51,6 +80,7 @@ function setFormPosition(jsEvent, confirmRepeat)
 	dist_y;
 
 	$('#event_details_template').css('max-height','');
+	document.getElementById('uploadButton').addEventListener("drop", dropHandler(event));
 
 	if(jsEvent)
 	{
@@ -2316,6 +2346,7 @@ function showEventForm(date, allDay, calEvent, jsEvent, mod, repeatOne, confirmR
 	if(mod=='show')
 	{
 		$('#saveButton').hide();
+		$('#uploadButton').hide();
 		$('#resetButton').hide();
 		$('#deleteButton').hide();
 		if($('#ResourceCalDAVList').find('[data-id="'+calEvent.res_id+'"]').hasClass("resourceCalDAV_item_ro"))
@@ -2622,6 +2653,22 @@ function bindEventForm()
 		});
 	});
 
+	$('#downloadButton').click(function(e){
+		if($('#uid').val()!='') {
+			var dlname = $('#name').val();
+			var dlhref = $('#uid').val().replace(/(:\/\/)\w*@/,"$1");
+			function downloadIt(){
+				if (dlname && dlname != '' && dlhref && dlhref != '') {
+					var link = document.createElement('a');
+					link.download = dlname;
+					link.href = dlhref;
+					link.dispatchEvent(new MouseEvent("click"));
+				}
+			}
+			downloadIt();
+		}
+	});
+
 	$('#resetButton').click(function(){
 		$('#event_details_template').find('img[data-type=invalidSmall]').css('display','none');
 		var uid=$('#uid').val();
@@ -2828,6 +2875,7 @@ function startEditModeEvent()
 	$('#saveButton').show();
 	$('#resetButton').show();
 	$('#deleteButton').show();
+	$('#uploadButton').show();
 	$('#show').val('');
 	$('#eventDetailsTable :input[disabled]').prop('disabled', false);
 	$('#eventDetailsTable :input[type="text"]').prop('readonly', false);
