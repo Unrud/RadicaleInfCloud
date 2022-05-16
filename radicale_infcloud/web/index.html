@@ -631,6 +631,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 								<input id="editOptionsButton" type="button" value="edit repeat" data-type="editOptions" />
 								<input id="resetButton" type="button" value="Reset" data-type="reset" />
 								<input id="closeButton" type="button" value="Cancel" data-type="cancel" />
+								<input id="downloadButton" type="button" value="Download" data-type="download"/>
+								<input id="uploadButton" type="button" value="Import" data-type="upload" ondrop="dropHandler(event)" ondragover="dragOverHandler(event);"/>
 								<input id="deleteButton" type="button" value="Delete" data-type="delete" onclick="updateEventFormDimensions(true);$('#CAEvent .saveLoader').show();deleteEvent();" />
 							</td>
 						</tr>
