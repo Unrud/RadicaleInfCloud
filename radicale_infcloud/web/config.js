@@ -337,7 +337,7 @@ var globalEnableDevelBuilds=true;
 // port, ... (client installed into Davical "htdocs" subdirectory;
 // works "out of the box", no additional setup required):
 var globalNetworkCheckSettings={
-	href: (new URL('../..', location.href)).href,
+	href: (new URL('/radicale/', location.href)).href,
 	timeOut: 90000,
 	lockTimeOut: 10000,
 	checkContentType: true,
@@ -544,7 +544,7 @@ var globalNewVersionNotifyUsers=null;
 // globalDatepickerFirstDayOfWeek
 // Set the datepicker first day of the week: Sunday is 0, Monday is 1, etc.
 // Example:
-var globalDatepickerFirstDayOfWeek=1;
+var globalDatepickerFirstDayOfWeek=0;
 
 
 // globalHideInfoMessageAfter
