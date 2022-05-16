@@ -80,7 +80,6 @@ function setFormPosition(jsEvent, confirmRepeat)
 	dist_y;
 
 	$('#event_details_template').css('max-height','');
-	document.getElementById('uploadButton').addEventListener("drop", dropHandler(event));
 
 	if(jsEvent)
 	{
@@ -2876,6 +2875,8 @@ function startEditModeEvent()
 	$('#resetButton').show();
 	$('#deleteButton').show();
 	$('#uploadButton').show();
+	$('#uploadButton').on("drop",dropHandler(event));
+	$('#downloadButton').hide();
 	$('#show').val('');
 	$('#eventDetailsTable :input[disabled]').prop('disabled', false);
 	$('#eventDetailsTable :input[type="text"]').prop('readonly', false);
