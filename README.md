@@ -11,7 +11,7 @@ for InfCloud to work properly. Otherwise the "Refresh" button is broken.
 ## Installation
 
 ```shell
-python3 -m pip install --upgrade RadicaleInfCloud
+python3 -m pip install --upgrade radicale_infcloud
 ```
 
 ## Configuration
