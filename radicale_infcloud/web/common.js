@@ -558,6 +558,13 @@ function localizeAddressTypes()
 					{fid:  9, type: 'input', 'data-addr-field': 'street', placeholder: localization[globalInterfaceLanguage].pholderAddressStreet},
 					{fid: 10, type: 'input', 'data-addr-field': 'code', placeholder: localization[globalInterfaceLanguage].pholderAddressPostal}
 				],
+		'tw':	[	'Taiwan',
+					{fid:  1, type: 'country'},
+					{fid:  5, type: 'input', 'data-addr-field': 'region', placeholder: localization[globalInterfaceLanguage].pholderAddressProvince},
+					{fid:  6, type: 'input', 'data-addr-field': 'locality', placeholder: localization[globalInterfaceLanguage].pholderAddressCity},
+					{fid:  9, type: 'input', 'data-addr-field': 'street', placeholder: localization[globalInterfaceLanguage].pholderAddressStreet},
+					{fid: 10, type: 'input', 'data-addr-field': 'code', placeholder: localization[globalInterfaceLanguage].pholderAddressPostal}
+			],
 		'co':	[	'Colombia',
 					{fid:  2, type: 'input', 'data-addr-field': 'street', placeholder: localization[globalInterfaceLanguage].pholderAddressStreet},
 					{fid:  3, type: 'input', 'data-addr-field': 'locality', placeholder: localization[globalInterfaceLanguage].pholderAddressCity},
