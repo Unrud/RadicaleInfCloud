@@ -473,6 +473,7 @@ var globalEnableKbNavigation=true;
 //   ru_RU (Русский [Russian]; thanks Александр Симонов)
 //   uk_UA (Українська [Ukrainian]; thanks Serge Yakimchuck)
 //   zh_CN (中国 [Chinese]; thanks Fandy)
+//   zh_TW (台灣 [Taiwan]; E2D.tw)
 // Example:
 var globalInterfaceLanguage='en_US';
 
