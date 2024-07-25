@@ -4,7 +4,7 @@ import os
 
 from setuptools import setup
 
-VERSION = "3.1.6"
+VERSION = "3.2.2"
 
 package_path = os.path.join(os.path.dirname(__file__), "radicale_infcloud")
 web_data = sum((

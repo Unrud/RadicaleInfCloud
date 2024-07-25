@@ -17,6 +17,7 @@
 from http import client
 from radicale import httputils
 from radicale.web import internal
+from importlib.metadata import version
 
 PLUGIN_CONFIG_SCHEMA = {"web": {
     "infcloud_config": {
@@ -38,7 +39,12 @@ class Web(internal.Web):
             status, headers, answer = super().get(
                 environ, base_prefix, path, user)
         if status == client.OK and path in ("/.web/", "/.web/index.html"):
-            answer = answer.replace(b"""\
+            if version("radicale") >="3.2.0":
+                answer = answer.replace(b"""title="Refresh">Refresh</a>""",
+                                        b"""title="Refresh">Refresh</a>
+      <a class="blue" data-name="infcloud" title="InfCloud" style="float: left;left: 40px;" href="infcloud">InfCloud</a>""")
+            else:
+                answer = answer.replace(b"""\
 <nav>
     <ul>""", b"""\
 <nav>
